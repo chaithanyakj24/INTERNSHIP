@@ -12,7 +12,7 @@ import Reply from '../components/Reply';
 import Modal from './Modal';
 
 const Onebox = () => {
-    const [currColor, setCurrColor] = useState(true);
+    const [currColor, setCurrColor] = useState(true); // currColor true for dark mode, false for light mode
     const [data, setData] = useState([]);
     const [singleMail, setSingleMail] = useState({});
     const [render, setRender] = useState(false);
@@ -78,23 +78,31 @@ const Onebox = () => {
     }, [isModalOpen]);
 
     return (
-        <div className={`flex h-screen ${currColor ? "bg-black text-white" : "bg-black text-white"}`}>
-            <div className='w-[56px] h-full bg-black'>
+        <div className={`flex h-screen ${currColor ? "bg-black text-white" : "bg-white text-black"}`}>
+            {/* Sidebar */}
+            <div className={`w-[56px] h-full ${currColor ? "bg-black" : "bg-gray-100"}`}>
                 <Slidebar currColor={currColor} showEmailOnebox={showEmailOnebox} handleChange={handleChange} />
             </div>
+
+            {/* Main Content */}
             <div className='flex-1 flex flex-col'>
-                <div className={`h-[64px] flex justify-between items-center p-4 bg-black border-b border-gray-700`}>
+                {/* Header */}
+                <div className={`h-[64px] flex justify-between items-center p-4 ${currColor ? "bg-black border-gray-700" : "bg-white border-gray-200"} border-b`}>
                     <p className='text-xl'>Onebox</p>
                     <div className='flex gap-5'>
+                        {/* Theme toggle button */}
                         <Theme currColor={currColor} onClick={() => setCurrColor(!currColor)} />
                         <Workspace />
                     </div>
                 </div>
+
+                {/* Main Content */}
                 {showEmailOnebox !== 5 ? (
                     <Loading />
                 ) : (
                     <div className='flex flex-1'>
-                        <div className='w-[275px] bg-black p-4 border-r border-gray-700 overflow-auto'>
+                        {/* Email list */}
+                        <div className={`w-[275px] ${currColor ? "bg-black" : "bg-gray-100"} p-4 border-r ${currColor ? "border-gray-700" : "border-gray-300"} overflow-auto`}>
                             <div className='flex justify-between items-center'>
                                 <Header currColor={currColor} />
                             </div>
@@ -104,7 +112,7 @@ const Onebox = () => {
                             </div>
                             <div className='flex justify-between text-[14px]'>
                                 <div className='flex items-center gap-2'>
-                                    <p className='text-blue-500 w-8 h-7 rounded-2xl bg-gray-700'>3</p>
+                                    <p className={`text-blue-500 w-8 h-7 rounded-2xl ${currColor ? "bg-gray-700" : "bg-gray-300"}`}>3</p>
                                     <p>New Emails</p>
                                 </div>
                                 <div className='flex items-center gap-2'>
@@ -112,34 +120,40 @@ const Onebox = () => {
                                     <ChevronDown />
                                 </div>
                             </div>
-                            <hr className='mt-2.5 border-gray-700' />
+                            <hr className={`${currColor ? "border-gray-700" : "border-gray-300"} mt-2.5`} />
                             <div>
                                 {data.length > 0 && data.map(item => (
                                     <div key={item.id}>
                                         <Email currColor={currColor} {...item} handleChangeEmail={handleChangeEmail} />
-                                        <hr className='border-gray-700' />
+                                        <hr className={`${currColor ? "border-gray-700" : "border-gray-300"}`} />
                                     </div>
                                 ))}
                             </div>
                         </div>
-                        <div className='flex-1 flex flex-col overflow-auto p-4'>
+
+                        {/* Reply section */}
+                        <div className={`flex-1 flex flex-col overflow-auto p-4 ${currColor ? "bg-black" : "bg-white"}`}>
                             <Reply currColor={currColor} singleMail={singleMail} />
                         </div>
-                        <div className='w-[300px] bg-black p-4 border-l border-gray-700 overflow-auto'>
+
+                        {/* User sidebar */}
+                        <div className={`w-[300px] ${currColor ? "bg-black" : "bg-gray-100"} p-4 border-l ${currColor ? "border-gray-700" : "border-gray-300"} overflow-auto`}>
                             <User currColor={currColor} />
                         </div>
                     </div>
                 )}
             </div>
+
+            {/* Modal for deleting email */}
             {isModalOpen && (
                 <Modal isOpen={isModalOpen} onClose={closeModal}>
-                    <div className='w-[440px] h-[240px] bg-black text-white'>
+                    <div className={`w-[440px] h-[240px] ${currColor ? "bg-black text-white" : "bg-white text-black"}`}>
                         <div className='h-full flex flex-col justify-center items-center'>
                             <h1 className='text-[24px] font-bold'>Are you sure?</h1>
                             <p className='mt-4 text-[#E8E8E8]'>Your selected email will be deleted.</p>
                             <div className='mt-8 flex gap-5'>
-                                <button className='w-[120px] h-12 bg-[#25262B]' onClick={closeModal}>Cancel</button>
-                                <button className='w-[140px] h-12 bg-[#FA5252]' onClick={deleteEmail}>Delete</button>
+                                <button className={`w-[120px] h-12 ${currColor ? "bg-[#25262B]" : "bg-gray-300"}`} onClick={closeModal}>Cancel</button>
+                                <button className={`w-[140px] h-12 ${currColor ? "bg-[#FA5252]" : "bg-red-500"}`} onClick={deleteEmail}>Delete</button>
                             </div>
                         </div>
                     </div>
