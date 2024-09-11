@@ -1,4 +1,4 @@
-import { ChevronDown, Eye, Reply, X, Zap } from 'lucide-react';
+import { ChevronDown, Eye, X, Zap } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { postMailMessages } from '../actions/action.ts';
 
@@ -35,54 +35,57 @@ const Send = ({ currColor, handleCancel, singleMail }) => {
         alert("Reply has been sent");
         handleCancel(); // Optionally close the Send component after sending
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.error("Error sending reply:", err);
+        alert("Failed to send reply. Please try again.");
+      });
   };
 
   return (
-    <div className='flex flex-col w-full h-full bg-white dark:bg-gray-800'>
-      <div className={`h-10 flex justify-between px-8 py-2 text-[16px] ${currColor ? 'bg-[#23272C]' : 'bg-white'}`}>
+    <div className={`flex flex-col w-full h-full ${currColor ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
+      <div className={`h-10 flex justify-between px-8 py-2 text-[16px] ${currColor ? 'bg-[#23272C]' : 'bg-gray-100'}`}>
         <p>Reply</p>
         <p onClick={handleCancel} className='cursor-pointer'><X /></p>
       </div>
       <hr className='border-t border-gray-700' />
-      <div className={`text-[12px] h-10 flex pt-2 px-8 py-2 items-center gap-2`}>
-        <p className='text-gray-400'>To:</p>
+      <div className={`text-[12px] h-10 flex pt-2 px-8 py-2 items-center gap-2 ${currColor ? 'text-gray-400' : 'text-gray-600'}`}>
+        <p>To:</p>
         <input
           type="text"
           placeholder=''
           value={formData.to}
-          className={`${currColor ? 'bg-[#141517]' : 'bg-white'} outline-none flex-1`}
+          className={`${currColor ? 'bg-[#141517] text-white' : 'bg-white text-black'} outline-none flex-1`}
           onChange={(e) => setFormData({ ...formData, to: e.target.value })}
         />
       </div>
       <hr className='border-t border-gray-700' />
-      <div className={`text-[12px] h-10 flex pt-2 px-8 py-2 items-center gap-2`}>
-        <p className='text-gray-400'>From:</p>
+      <div className={`text-[12px] h-10 flex pt-2 px-8 py-2 items-center gap-2 ${currColor ? 'text-gray-400' : 'text-gray-600'}`}>
+        <p>From:</p>
         <input
           type="text"
           placeholder=''
           value={formData.from}
-          className={`${currColor ? 'bg-[#141517]' : 'bg-white'} outline-none flex-1`}
+          className={`${currColor ? 'bg-[#141517] text-white' : 'bg-white text-black'} outline-none flex-1`}
           onChange={(e) => setFormData({ ...formData, from: e.target.value })}
         />
       </div>
       <hr className='border-t border-gray-700' />
-      <div className={`text-[12px] h-10 flex pt-2 px-8 py-2 items-center gap-2`}>
-        <p className='text-gray-400'>Subject:</p>
+      <div className={`text-[12px] h-10 flex pt-2 px-8 py-2 items-center gap-2 ${currColor ? 'text-gray-400' : 'text-gray-600'}`}>
+        <p>Subject:</p>
         <input
           type="text"
           placeholder=''
           value={formData.subject}
-          className={`${currColor ? 'bg-[#141517]' : 'bg-white'} outline-none flex-1`}
+          className={`${currColor ? 'bg-[#141517] text-white' : 'bg-white text-black'} outline-none flex-1`}
           onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
         />
       </div>
       <hr className='border-t border-gray-700' />
-      <div className={`text-[12px] p-2 text-left`}>
+      <div className='text-[12px] p-2 text-left'>
         <textarea
           placeholder='Hello John...'
           value={formData.body}
-          className={`ml-6 h-[250px] w-full outline-none ${currColor ? 'bg-[#141517]' : 'bg-white'}`}
+          className={`w-full h-[250px] outline-none ${currColor ? 'bg-[#141517] text-white' : 'bg-white text-black'}`}
           onChange={(e) => setFormData({ ...formData, body: e.target.value })}
         />
       </div>

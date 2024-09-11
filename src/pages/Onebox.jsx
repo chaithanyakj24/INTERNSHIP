@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router';
 import { ChevronDown } from 'lucide-react';
 import Slidebar from '../components/Slidebar';
 import Theme from '../components/Theme';
@@ -19,8 +18,6 @@ const Onebox = () => {
     const [render, setRender] = useState(false);
     const [showEmailOnebox, setShowEmailOnebox] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const location = useLocation();
 
     const openModal = () => {
         setIsModalOpen(true);
