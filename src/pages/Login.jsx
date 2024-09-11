@@ -1,30 +1,21 @@
 import React from 'react';
-import { GoogleLogin } from '@react-oauth/google';
-import{jwtDecode } from 'jwt-decode';
-import logo from '../assets/logo.png';  // Path to your logo
-import googleLogo from '../assets/google.png';  // Path to your Google logo
-import { useNavigate } from 'react-router-dom';
+import { GoogleLogin } from 'react-google-login';
+import axios from 'axios';
+import logo from '../assets/logo.png';
+import googleLogo from '../assets/google.png';
 
-const clientId = '676115310866-b5d5n72apsp5kcvbc12112ai53dvqomv.apps.googleusercontent.com';  // Your clientId
+const clientId = '676115310866-85lrotcf4ha99kql33rjqu5ak5tj02pi.apps.googleusercontent.com';
 
 const Login = () => {
-  const navigate = useNavigate();  // Initialize useNavigate hook
-
-  const handleSuccess = (response) => {
-    const { credential } = response;
+  const handleSuccess = async (response) => {
+    const { tokenId } = response;
     try {
-      const decoded = jwtDecode(credential);
-      
-      // Store user information in localStorage
-      localStorage.setItem('authToken', credential);
-      localStorage.setItem('user', JSON.stringify(decoded));
-
-      console.log('Login Successful', decoded);
-      
-      // Navigate to the Onebox page after successful login
-      navigate('/onebox');
+      const res = await axios.post('/api/auth/google', { idToken: tokenId });
+      const { token } = res.data;
+      localStorage.setItem('authToken', token);
+      // Redirect or handle successful login logic
     } catch (error) {
-      console.error('Error decoding token:', error);
+      console.error('Error authenticating with Google:', error);
     }
   };
 
@@ -32,9 +23,14 @@ const Login = () => {
     console.error('Google Sign-In Error:', error);
   };
 
+  const handleSignIn = () => {
+    // Add sign-in logic or navigation
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-black">
-      <nav className="bg-black py-2">
+      {/* Navbar */}
+      <nav className="bg-black py-2 overflow-hidden">
         <div className="container mx-auto flex justify-center">
           <img src={logo} alt="Logo" className="h-12" />
         </div>
@@ -42,9 +38,11 @@ const Login = () => {
 
       <div className="border-t border-white border-opacity-30"></div>
 
+      {/* Login Form */}
       <main className="flex-grow flex items-center justify-center bg-black">
         <div className="bg-gray-950 px-14 py-9 rounded-md shadow-lg text-center border border-white border-opacity-30">
           <h2 className="text-white text-2xl mb-6 font-semibold">Create a new account</h2>
+
           <GoogleLogin
             clientId={clientId}
             buttonText="Sign Up with Google"
@@ -56,24 +54,30 @@ const Login = () => {
                 disabled={renderProps.disabled}
                 className="bg-gray-950 text-white w-full px-32 py-3 rounded-md flex items-center justify-center mb-6 border border-white border-opacity-20"
               >
-                <img src={googleLogo} alt="Google" className="w-6 h-6 mr-3" />
+                <img
+                  src={googleLogo}
+                  alt="Google"
+                  className="w-6 h-6 mr-3"
+                />
                 Sign Up with Google
               </button>
             )}
           />
+
           <button className="bg-gradient-to-r from-blue-500 to-blue-700 text-white px-4 py-1.5 rounded-md mt-4 mb-8">
             Create an Account
           </button>
           <p className="text-gray-400">
             Already have an account?{' '}
-            <span className="text-white cursor-pointer">Sign In</span>
+            <button onClick={handleSignIn} className="text-white">Sign In</button>
           </p>
         </div>
       </main>
 
+      {/* Footer */}
       <footer className="bg-black text-gray-400 text-opacity-70 py-1 flex flex-col items-center border-t border-white border-opacity-30">
         <div className="text-center mb-2">
-          <p>&copy; {new Date().getFullYear()} Your Company Name. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} CHAITHANYA K J. All rights reserved.</p>
         </div>
       </footer>
     </div>

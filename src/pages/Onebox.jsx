@@ -27,30 +27,23 @@ const Onebox = () => {
         setIsModalOpen(false);
     };
 
-    // Simulate mail fetch logic
     const fetchData = () => {
-        // Dummy emails data
         const emails = [
             { id: 1, subject: "Welcome to ReachInbox", threadId: "t1" },
             { id: 2, subject: "Reminder: Meeting at 10 AM", threadId: "t2" },
             { id: 3, subject: "Weekly Report Submission", threadId: "t3" }
         ];
         setData(emails);
-        setSingleMail(emails[0]); // Set first email
+        setSingleMail(emails[0]); 
     };
 
     useEffect(() => {
-        // Simulate fetching emails when component mounts
         fetchData();
     }, [render]);
-
-    // Function to handle email change
     const handleChangeEmail = (id) => {
         const email = data.find(mail => mail.id === id);
         setSingleMail(email);
     };
-
-    // Modal for deleting email
     const deleteEmail = () => {
         const id = singleMail?.threadId;
         if (id) {
@@ -63,8 +56,6 @@ const Onebox = () => {
     };
 
     const handleChange = (index) => setShowEmailOnebox(index);
-
-    // Handle keypress to open modal
     useEffect(() => {
         const handleKeyDown = (event) => {
             if (event.key === "d" || event.key === "D") {
@@ -79,24 +70,17 @@ const Onebox = () => {
 
     return (
         <div className={`flex h-screen ${currColor ? "bg-black text-white" : "bg-white text-black"}`}>
-            {/* Sidebar */}
             <div className={`w-[56px] h-full ${currColor ? "bg-black" : "bg-gray-100"}`}>
-                <Slidebar currColor={currColor} showEmailOnebox={showEmailOnebox} handleChange={handleChange} />
+                <Slidebar currColor={currColor} handleChange={handleChange} />
             </div>
-
-            {/* Main Content */}
             <div className='flex-1 flex flex-col'>
-                {/* Header */}
                 <div className={`h-[64px] flex justify-between items-center p-4 ${currColor ? "bg-black border-gray-700" : "bg-white border-gray-200"} border-b`}>
                     <p className='text-xl'>Onebox</p>
                     <div className='flex gap-5'>
-                        {/* Theme toggle button */}
                         <Theme currColor={currColor} onClick={() => setCurrColor(!currColor)} />
                         <Workspace />
                     </div>
                 </div>
-
-                {/* Main Content */}
                 {showEmailOnebox !== 5 ? (
                     <Loading />
                 ) : (
@@ -130,21 +114,15 @@ const Onebox = () => {
                                 ))}
                             </div>
                         </div>
-
-                        {/* Reply section */}
                         <div className={`flex-1 flex flex-col overflow-auto p-4 ${currColor ? "bg-black" : "bg-white"}`}>
                             <Reply currColor={currColor} singleMail={singleMail} />
                         </div>
-
-                        {/* User sidebar */}
                         <div className={`w-[300px] ${currColor ? "bg-black" : "bg-gray-100"} p-4 border-l ${currColor ? "border-gray-700" : "border-gray-300"} overflow-auto`}>
                             <User currColor={currColor} />
                         </div>
                     </div>
                 )}
             </div>
-
-            {/* Modal for deleting email */}
             {isModalOpen && (
                 <Modal isOpen={isModalOpen} onClose={closeModal}>
                     <div className={`w-[440px] h-[240px] ${currColor ? "bg-black text-white" : "bg-white text-black"}`}>

@@ -29,11 +29,10 @@ export const getMailMessages = (id: number) => {
     }).then(res => res.data.data)
       .catch(err => {
           console.error("Error fetching mail messages:", err);
-          throw err; // Rethrow error for potential further handling
+          throw err; 
       });
 };
 
-// Post mail messages
 export const postMailMessages = (id: number, messages: any) => {
     const token = getToken();
     return axios.post(`https://hiring.reachinbox.xyz/api/v1/onebox/reply/${id}`, messages, {
@@ -45,11 +44,10 @@ export const postMailMessages = (id: number, messages: any) => {
         return res.data;
     }).catch(err => {
         console.error("Error posting mail messages:", err);
-        throw err; // Rethrow error for potential further handling
+        throw err; 
     });
 };
 
-// Delete mail response by ID
 export const deleteMailResponse = (id: number) => {
     const token = getToken();
     return axios.delete(`https://hiring.reachinbox.xyz/api/v1/onebox/messages/${id}`, {
@@ -61,11 +59,10 @@ export const deleteMailResponse = (id: number) => {
         return res;
     }).catch(err => {
         console.error("Error deleting mail response:", err);
-        throw err; // Rethrow error for potential further handling
+        throw err; 
     });
 };
 
-// Reset mail
 export const resetMail = (token: string | null) => {
     return axios.get('https://hiring.reachinbox.xyz/api/v1/onebox/reset', {
         headers: {
@@ -76,6 +73,6 @@ export const resetMail = (token: string | null) => {
         return res;
     }).catch(err => {
         console.error("Error resetting mail:", err);
-        throw err; // Rethrow error for potential further handling
+        throw err; 
     });
 };

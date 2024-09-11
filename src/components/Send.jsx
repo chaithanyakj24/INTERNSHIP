@@ -33,7 +33,7 @@ const Send = ({ currColor, handleCancel, singleMail }) => {
     postMailMessages(singleMail.threadId, formData)
       .then(() => {
         alert("Reply has been sent");
-        handleCancel(); // Optionally close the Send component after sending
+        handleCancel();
       })
       .catch(err => {
         console.error("Error sending reply:", err);

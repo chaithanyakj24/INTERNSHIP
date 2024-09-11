@@ -1,13 +1,17 @@
-import { BarChart2, Home, InboxIcon, List, Mail, Send, UserRoundSearchIcon } from 'lucide-react';
-import React, { useState } from 'react';
+import React from 'react';
+import { Home, InboxIcon, List, Mail, Send, UserRoundSearchIcon, BarChart2 } from 'lucide-react';
 import Icon from './Icons';
 
 const Slidebar = ({ currColor, username, handleChange }) => {
-    const [activeIcon, setActiveIcon] = useState(0);
+    const [activeIcon, setActiveIcon] = React.useState(0);
 
     const handleIconClick = (index) => {
         setActiveIcon(index);
         handleChange(index);
+    };
+    const getInitials = (name) => {
+        const parts = name.split(' ');
+        return (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
     };
 
     return (
@@ -21,69 +25,35 @@ const Slidebar = ({ currColor, username, handleChange }) => {
                     />
                 </div>
                 <div className='pt-12 px-2 flex flex-col gap-8'>
-                    <Icon
-                        currColor={currColor}
-                        color={currColor ? 'white' : 'black'}
-                        isActive={activeIcon === 0}
-                        onClick={() => handleIconClick(0)}
-                    >
+                    <Icon currColor={currColor} color={currColor ? 'white' : 'black'} isActive={activeIcon === 0} onClick={() => handleIconClick(0)}>
                         <Home color={currColor ? 'white' : 'black'} />
                     </Icon>
-                    <Icon
-                        currColor={currColor}
-                        color={currColor ? 'white' : 'black'}
-                        isActive={activeIcon === 1}
-                        onClick={() => handleIconClick(1)}
-                    >
+                    <Icon currColor={currColor} color={currColor ? 'white' : 'black'} isActive={activeIcon === 1} onClick={() => handleIconClick(1)}>
                         <UserRoundSearchIcon color={currColor ? 'white' : 'black'} />
                     </Icon>
-                    <Icon
-                        currColor={currColor}
-                        color={currColor ? 'white' : 'black'}
-                        isActive={activeIcon === 2}
-                        onClick={() => handleIconClick(2)}
-                    >
+                    <Icon currColor={currColor} color={currColor ? 'white' : 'black'} isActive={activeIcon === 2} onClick={() => handleIconClick(2)}>
                         <Mail color={currColor ? 'white' : 'black'} />
                     </Icon>
-                    <Icon
-                        currColor={currColor}
-                        color={currColor ? 'white' : 'black'}
-                        isActive={activeIcon === 3}
-                        onClick={() => handleIconClick(3)}
-                    >
+                    <Icon currColor={currColor} color={currColor ? 'white' : 'black'} isActive={activeIcon === 3} onClick={() => handleIconClick(3)}>
                         <Send color={currColor ? 'white' : 'black'} />
                     </Icon>
-                    <Icon
-                        currColor={currColor}
-                        color={currColor ? 'white' : 'black'}
-                        isActive={activeIcon === 4}
-                        onClick={() => handleIconClick(4)}
-                    >
+                    <Icon currColor={currColor} color={currColor ? 'white' : 'black'} isActive={activeIcon === 4} onClick={() => handleIconClick(4)}>
                         <List color={currColor ? 'white' : 'black'} />
                     </Icon>
-                    <Icon
-                        currColor={currColor}
-                        color={currColor ? 'white' : 'black'}
-                        isActive={activeIcon === 5}
-                        onClick={() => handleIconClick(5)}
-                    >
+                    <Icon currColor={currColor} color={currColor ? 'white' : 'black'} isActive={activeIcon === 5} onClick={() => handleIconClick(5)}>
                         <InboxIcon color={currColor ? 'white' : 'black'} />
                     </Icon>
-                    <Icon
-                        currColor={currColor}
-                        color={currColor ? 'white' : 'black'}
-                        isActive={activeIcon === 6}
-                        onClick={() => handleIconClick(6)}
-                    >
+                    <Icon currColor={currColor} color={currColor ? 'white' : 'black'} isActive={activeIcon === 6} onClick={() => handleIconClick(6)}>
                         <BarChart2 color={currColor ? 'white' : 'black'} />
                     </Icon>
                 </div>
             </div>
             <div className='w-12 h-[70px] flex justify-center items-center'>
-                <p className={`w-8 h-8 bg-green-900 rounded-full text-white flex items-center justify-center`}>
-                    {username}
+                <p className={`w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-800 rounded-full text-white flex items-center justify-center`}>
+                    {username ? getInitials(username) : 'NA'}
                 </p>
             </div>
+
         </div>
     );
 };

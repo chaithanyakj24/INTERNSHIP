@@ -5,7 +5,6 @@ const ThemeBtn = () => {
 
     const toggleCheckbox = () => {
         setIsChecked(!isChecked);
-        // Here you can add logic to handle theme change, e.g., updating a context or a global state
     };
 
     return (
