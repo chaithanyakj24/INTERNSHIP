@@ -9,7 +9,9 @@ const Slidebar = ({ currColor, username, handleChange }) => {
         setActiveIcon(index);
         handleChange(index);
     };
+
     const getInitials = (name) => {
+        if (!name) return 'NA'; // Default to 'NA' if name is not provided
         const parts = name.split(' ');
         return (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
     };
@@ -53,7 +55,6 @@ const Slidebar = ({ currColor, username, handleChange }) => {
                     {username ? getInitials(username) : 'NA'}
                 </p>
             </div>
-
         </div>
     );
 };
