@@ -4,7 +4,7 @@ import axios from 'axios';
 import logo from '../assets/logo.png';
 import googleLogo from '../assets/google.png';
 
-const clientId = '676115310866-85lrotcf4ha99kql33rjqu5ak5tj02pi.apps.googleusercontent.com';
+const clientId = '676115310866-fjm8b1vgkhd3l8kcl3g0atrqsrralg71.apps.googleusercontent.com';
 
 const Login = () => {
   const handleSuccess = async (response) => {

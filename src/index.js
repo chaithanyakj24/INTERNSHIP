@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
-const clientId = '676115310866-b5d5n72apsp5kcvbc12112ai53dvqomv.apps.googleusercontent.com';
+const clientId = '676115310866-fjm8b1vgkhd3l8kcl3g0atrqsrralg71.apps.googleusercontent.com';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
